@@ -23,6 +23,7 @@ function App() {
     error,
   } = useLocalStorage('Todos_V1', []);
   const [searchValue, setSearchValue] = React.useState('');
+  const [openModal, setOpenModal] = React.useState(false);
 
   const completedTodos = todos.filter(
     todo => !!todo.completed
@@ -58,6 +59,17 @@ function App() {
     saveTools (newTodos);
   };
 
+  //Agregar nueva tarea
+  const addTodo = (text) => {
+    const newTodos = [...todos];
+    newTodos.push({
+      text: text,
+      completed: false
+    });
+    saveTools(newTodos);
+    setOpenModal(false);
+  };
+
   return (
     <AppUI
       loading={loading}
@@ -69,6 +81,9 @@ function App() {
       searchTodos={ searchTodos }      
       completeTodo={completeTodo}
       deleteTodo={deleteTodo}
+      openModal={openModal}
+      setOpenModal={setOpenModal}
+      addTodo={addTodo}
     />
   );
 }

@@ -1,15 +1,13 @@
 import './CreateTodoButton.css'
 
-function CreateTodoButton(){
+function CreateTodoButton({ setOpenModal }){
     return(
       <button className="button-posision button-add material-symbols-outlined"
         onClick={ 
-          (event) => {
-            console.log('Le diste click ')
-            console.log(event)
-            console.log(event.target)
+          () => {
+            setOpenModal(true);
           }
-        }>add
+        }>add_circle
       </button>
     );
   }

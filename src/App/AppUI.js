@@ -4,6 +4,7 @@ import { TodoSearch } from '../TodoSearch';
 import { TodoList } from '../TodoList';
 import { TodoItem } from '../TodoItem';
 import { CreateTodoButton } from '../CreateTodoButton';
+import { Modal } from '../Modal';
 import './app.css';
 
 function AppUI ({
@@ -16,6 +17,9 @@ function AppUI ({
   searchTodos,
   completeTodo,
   deleteTodo,
+  openModal,
+  setOpenModal,
+  addTodo,
 }){  
   return (
     <>
@@ -27,7 +31,7 @@ function AppUI ({
         searchValue={searchValue}
         setSearchValue={setSearchValue}
       />      
-      <TodoList />
+      <TodoList>
         {loading && <p style={{ color : 'greenyellow' }}>Estamos Cargando...</p>}
         {error && <p>Se ha presnetado un error !...</p>}
         {(!loading && searchTodos.length  === 0) && <p>Crear tu primer tarea!</p>}        
@@ -41,8 +45,13 @@ function AppUI ({
             onDelete={() => deleteTodo(todo.text)}
           />
         ))}
-      <TodoList />      
-      <CreateTodoButton/>        
+      </TodoList>      
+      {openModal && (
+        <Modal addTodo={addTodo} setOpenModal={setOpenModal} />
+      )}
+      <CreateTodoButton
+        setOpenModal={setOpenModal}
+      />        
     </>
   );
 }  
